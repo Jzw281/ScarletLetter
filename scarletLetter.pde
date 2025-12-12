@@ -4,24 +4,94 @@
 // me when 
 String 脑子 = "not found";
 
+
 boolean buttonPressed(int x, int y, int w, int h) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h && mousePressed;
 }
 
-void button(String s){
-  //draw the button
-  //text s
-  if(buttonPressed(100,0100,100,100)){
-    //fsdfsdfsdfs
+void textDisplay(String Text, int x, int y,int boxWidth){
+  int Y = y;
+  for(int i = 0; i<Text.length();i++){
+    if(i>0){
+      if(x+5+textWidth(Text.charAt(i-1))>=x+boxWidth){
+      text(Text.charAt(i),x+5+textWidth(Text.charAt(i-1)),Y);
+      } else{
+        Y+=5;
+        text(Text.charAt(i),x+5+textWidth(Text.charAt(i-1))-boxWidth,Y);
+      }
+    } else if(i==0){
+      text(Text.charAt(i),x+5,y);
+    }
   }
+}
+
+int button(String ChoiceOne, String ChoiceTwo, String ChoiceThree){
+  //draw the button
+  rect(10,440,250,50);
+  textDisplay(ChoiceOne,15,445,240);
+  rect(265,440,250,50);
+  textDisplay(ChoiceTwo,270,445,240);
+  rect(530,440,250,50);
+  textDisplay(ChoiceThree,535,445,240);
+  //text s
+  if(buttonPressed(10,440,260,490)){
+    return 1;
+  }
+  if(buttonPressed(265,440,515,490)){
+    return 2;
+  }
+  if(buttonPressed(530,440,780,490)){
+    return 3;
+  }
+  else{
+    return 0;
+  }
+}
+void dialouge(String Dialouge){
+  rect(10,500,780,290);
+  textDisplay(Dialouge,15,505,780);
+}
+
+void setup(){
+  size(800,800);
+  background(255);
+}
+void draw(){
+  
 }
 
 /* PLANNING
 
-- prolouge(backstory)
+- prolouge(backstory) - cutscene
+You meet a nice young woman. Her name is Hester. There's something special between you. But no, you must not! You are an esteemed priest, while she is a married seamstress.
+
 - scaffolding
-- meet roger as a cutscene??
+Hester is convicted on the scaffolding. The crowd goes wild. Guilt naws at your heart. Little do the townspeople know, YOU are the one who sinned...
+Options:
+1. Condemn Hester in front of the people (the crowd is happy, Hester is shocked and hates you)
+2. Admit your crimes. Preach in front of the crowd. (crowd is shocked and is wary of you. You are temporarily stripped of your duties.)
+3. Canon
+
+- meet roger - cutscene
+DOESN'T HAPPEN IF YOU ADMIT YOUR CRIMES
+'An ominous presence approaches you'. Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance. 'Per the town's wishes, you and Roger start living together to preserve your failing health'.
+
 - governor's hall (meeting pearl and hester)
+IF: you admitted your crimes, here you are asking for forgiveness AND asking for custody for Pearl
+Governor: Sees Pearl (canon)
+Governor: *sees you and hester* The fallen angel and the bearer of the scarlet letter, what are you doing in my abode?
+Options:
+1. Ask for forgiveness (governor - why would I? Roger smirks in the background) 
+2. Preach how you punished yourself for your sins - Governor is happier, and will allow you to keep Pearl happily (Roger stares at you)
+3. Ask about Pearl with Hester (canon hester) - BUT if you did option one and didn't do option 2, he'll be mad
+
+IF: You didn't admit your crimes (options 1 or 3)
+Governor: sees Pearl and Hester (canon)
+Options:
+1. Canon
+2. Apologize to Hester (Roger SUS)
+3. Try to take Pearl away (doesn't work but Hester is MAD)
+
 - guilt(flogging)
 - mirror scene(self reflection?)
 - nighttime walk (scarlet letter in the sky)
@@ -51,6 +121,7 @@ Good Ending:
 Requirements
 - High everything, good public opinion, NO ROGERR
 
+
 Bad Ending:
 - Roger Kills you, Pearl and Hester Leave without you
 Requirements:
@@ -59,15 +130,17 @@ Canon Ending:
 - You die on the scaffold
 Requirements:
 - plan to leave to england but high guilt var kills you
-Runaway Ending:
 
+
+Runaway Ending: TWO OPTIONS
+Option 1:
 You, Pearl, and Hester run from the town together
-Requirements:
-- Plan runaway, High Pearl and Hester, low roger prob, low public
+
+Option 2:
+Hester and Pearl runaway by themselves cuz they're MAD
 
 
-
- Secret Ending (Ascension):
+Secret Ending (Ascension):
  - You pray to god to forgive you, and ascend to heaven
 
  Requirements:
