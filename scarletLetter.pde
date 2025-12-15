@@ -75,6 +75,7 @@ Options:
 - meet roger - cutscene
 DOESN'T HAPPEN IF YOU ADMIT YOUR CRIMES
 'An ominous presence approaches you'. Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance. 'Per the town's wishes, you and Roger start living together to preserve your failing health'.
+*PRAY BUTTON APPEARS HERE*
 
 - governor's hall (meeting pearl and hester)
 IF: you admitted your crimes, here you are asking for forgiveness AND asking for custody for Pearl
@@ -93,8 +94,25 @@ Options:
 3. Try to take Pearl away (doesn't work but Hester is MAD)
 
 - guilt(flogging)
-- mirror scene(self reflection?)
+IF: You admitted your crimes
+Guilt continues to knaw at your heart. It's slowly becoming unbearable
+Options:
+1. talk with Hester. She comforts you
+2. Punish yourself
+3. Pray to god (+10 prays)
+
+IF: You didn't admit your crimes
+Options:
+1. Talk to Roger. He makes you more guilty
+2. Punish yourself (canon)
+3. Pray to god (+10 prays)
+
+- mirror scene - cutscene
+DOESN'T HAPPEN IF YOU TALKED TO HESTER
+
 - nighttime walk (scarlet letter in the sky)
+only if you didn't admit your crimes
+
 - Arthur in the woods
 - Arthur in the town being naughty and dismissing Roger
 - election sermon
@@ -151,14 +169,13 @@ Secret Ending (Ascension):
 
 
 Amie: 
-Art: 
-- Roger
-- Hester
-- Pearl
+- Draw Roger
+- Draw Hester
+- Draw Pearl
 - draw cutscenes
-Code:
--transitions/screens
+- code transitions/screens
 - UI
+- Story(10 big blocks 150-200 words)
 
 Joza:
 Art:
@@ -168,7 +185,6 @@ Code:
 - pray button
 
 Both:
-- Story(10 big blocks 150-200 words)
 - balancing, what leads to what ending
 - Options (3 per scene, like 50-100 words), 30 total
 
