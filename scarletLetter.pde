@@ -1,9 +1,34 @@
-// me when i do scarlet letter 
-// me when i don't know how to code.
-// me when scarlet letter is stupid
-// me when 
+// VARIABLES //
 String 脑子 = "not found";
+
 int prayAmt = 0;
+
+PImage light_forest;
+PImage scaffolding;
+PImage governor_house;
+PImage dark_forest;
+
+boolean prolouge = true; //background: light forest
+boolean hester_on_scaffolding = false; //please make this a better name. background: scaffolding
+boolean roger_cutscene = false; //this needs a background
+boolean governor = false;
+boolean guilt = false; //this needs a background
+boolean night_walk = false; //this needs a background - the old pic was too low-quality
+boolean angel_cutscene = false; //this is the a in the sky. needs a background - can be the scaffolding but just dark
+boolean woods = false; //background: dark_forest
+boolean election = false; //background: scaffolding
+
+void setup(){
+  size(800,800);
+  pixelDensity(1); //needed to make sure the images work correctly
+  
+  light_forest = loadImage("light_forest.png");
+  scaffolding = loadImage("scaffolding.png");
+  governor_house = loadImage("governor_house.png");
+  dark_forest = loadImage("dark_forest.jpg");
+  
+  background(light_forest);
+}
 
 boolean buttonPressed(int x, int y, int w, int h) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h && mousePressed;
@@ -31,15 +56,15 @@ void textDisplay(String Text, int x, int _y,int boxWidth, int size){
 
 int button(String ChoiceOne, String ChoiceTwo, String ChoiceThree){
   //draw the button
-  fill(255);
+  fill(255, 70);
   rect(10,440,250,50);
   textDisplay(ChoiceOne,15,445,240,18);
   
-  fill(255);
+  fill(255, 70);
   rect(270,440,250,50);
   textDisplay(ChoiceTwo,270,445,240,18);
 
-  fill(255);
+  fill(255, 70);
   rect(530,440,250,50);
   textDisplay(ChoiceThree,535,445,240,18);
 
@@ -59,18 +84,13 @@ int button(String ChoiceOne, String ChoiceTwo, String ChoiceThree){
 }
 
 void dialouge(String Dialouge){
-  fill(255);
+  fill(255, 200);
   rect(10,500,780,290);
 
   textDisplay(Dialouge,15,505,780,20);
 
   fill(255);
   triangle(765,760,775,770,765,780);
-}
-
-void setup(){
-  size(800,800);
-  background(255);
 }
 
 void drawScene (int choiceOne, int choiceTwo, int choiceThree, boolean scene, boolean nextScene1, boolean nextScene2,boolean nextScene3){
@@ -90,15 +110,19 @@ void drawScene (int choiceOne, int choiceTwo, int choiceThree, boolean scene, bo
   }
 }
 void draw(){
-  dialouge("aabsdfasjdfasdnf");
-  fill(255);
-  rect(500,505,30,80);
-  textDisplay("asdfasdfa",500,500,20,12);
-  println(button("One","Two","Three"));
+  //asfgdawlehfgauwheifohawiufhuiawehfuiwhaleifhaiwlhfuailwehfueiwlahf
 
   // transition to next scene
   // create a boolen for each scene, when one of the options is true, then set own bool to false and one of the other ones to true. 
-  //if ()
+
+  // TO: JOZAAAAAAAAAA //
+
+  // Here's how to syntax:
+  if(prolouge){
+    prolouge(); //make a function for the boolean. That way the code is clean and easy to traverse
+  }
+  //now go to line 152
+
   if(button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==1){
     
   } 
@@ -124,6 +148,19 @@ void mouseClicked(){
       prayAmt++;
     }
 }
+
+void prolouge(){
+  background(light_forest); //the background is the image. the image MUST be 800x800 aka the same dimensions of the canvas or else it won't work
+  
+  dialouge("aabsdfasjdfasdnf");
+  println(button("One","Two","Three"));
+
+  //image(); //please put images of roger and the person he is talking to/looking at on the left and right of the screen respectively.
+  //syntax: image(imagevariable, x-top-left-corner, y-top-left-corner);
+}
+
+
+
 
 /* PLANNING
 
