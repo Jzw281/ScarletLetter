@@ -4,26 +4,26 @@
 // me when 
 String 脑子 = "not found";
 int prayAmt = 0;
+
 boolean buttonPressed(int x, int y, int w, int h) {
   return mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h && mousePressed;
 }
 
-void textDisplay(String Text, int x, int y,int boxWidth, int size){
+void textDisplay(String Text, int x, int _y,int boxWidth, int size){
   fill(0);
   textSize(size);
-  int Y = y + 15;
+  
+  int y = _y + 20; /////////////JOZA: I CHANGED THE OLD 'Y' to 'y' and the old 'y' to '_y' cuz it's sus
   String text_length = "";
+
   for(int i = 0; i<Text.length();i++){
-    if(i>0){
-      if(x+5+textWidth(text_length)<=x+boxWidth){
-        text(Text.charAt(i),x+5+textWidth(text_length),Y);
-      } else{
-        Y+=10;
-        text_length = "";
-        text(Text.charAt(i),x+5+textWidth(text_length)-boxWidth,Y);
-      }
-    } else if(i==0){
-      text(Text.charAt(i),x+5,y+15);
+    if(x+5+textWidth(text_length) <= x+boxWidth-5){
+      text(Text.charAt(i),x+5+textWidth(text_length),y);
+    } 
+    else{
+      y+=15;
+      text_length = "";
+      text(Text.charAt(i),x+5+textWidth(text_length),y);
     }
     text_length+=Text.charAt(i);
   }
@@ -33,13 +33,16 @@ int button(String ChoiceOne, String ChoiceTwo, String ChoiceThree){
   //draw the button
   fill(255);
   rect(10,440,250,50);
-  textDisplay(ChoiceOne,15,445,240,12);
+  textDisplay(ChoiceOne,15,445,240,18);
+  
   fill(255);
   rect(270,440,250,50);
-  textDisplay(ChoiceTwo,270,445,240,12);
+  textDisplay(ChoiceTwo,270,445,240,18);
+
   fill(255);
   rect(530,440,250,50);
-  textDisplay(ChoiceThree,535,445,240,12);
+  textDisplay(ChoiceThree,535,445,240,18);
+
   //text s
   if(buttonPressed(10,440,250,50)){
     return 1;
@@ -54,49 +57,68 @@ int button(String ChoiceOne, String ChoiceTwo, String ChoiceThree){
     return 0;
   }
 }
+
 void dialouge(String Dialouge){
-fill(255);
+  fill(255);
   rect(10,500,780,290);
-  textDisplay(Dialouge,15,505,780,12);
+
+  textDisplay(Dialouge,15,505,780,20);
+
+  fill(255);
+  triangle(765,760,775,770,765,780);
 }
 
 void setup(){
   size(800,800);
   background(255);
-  
-  
 }
-void drawScene (int choiceOne, int choiceTwo, int choiceThree, boolean scene, boolean nextScene1, boolean nextScene2,boolean nextScene3){}
+
+void drawScene (int choiceOne, int choiceTwo, int choiceThree, boolean scene, boolean nextScene1, boolean nextScene2,boolean nextScene3){
   if(scene){
-  if(button("choiceOne","choiceTwo","choiceThree")==1){
-    scene = false;
-    newScene1 = true;
-  } else if (button("choiceOne","choiceTwo","choiceThree")==2){
-    scene = false;
-    newScene2 = true;
-  } else if (button("choiceOne","choiceTwo","choiceThree")==3){
-        scene = false;
-        newScene3 = true;
+    if(button("choiceOne","choiceTwo","choiceThree")==1){
+      scene = false;
+      nextScene1 = true;
+    } 
+    else if(button("choiceOne","choiceTwo","choiceThree")==2){
+      scene = false;
+      nextScene2 = true;
+    } 
+    else if(button("choiceOne","choiceTwo","choiceThree")==3){
+      scene = false;
+      nextScene3 = true;
+    }
   }
-  }
+}
 void draw(){
   dialouge("aabsdfasjdfasdnf");
-  textSize(24);
+  fill(255);
+  rect(500,505,30,80);
   textDisplay("asdfasdfa",500,500,20,12);
-  println(button("Oneewhfqfgqekhfqjiewjhfliqwehflqewhflqweehlkfqewh","Two","Three"));
+  println(button("One","Two","Three"));
+
   // transition to next scene
   // create a boolen for each scene, when one of the options is true, then set own bool to false and one of the other ones to true. 
-  if ()
-  if(button("Oneewhfqfgqekhfqjiewjhfliqwehflqewhflqweehlkfqewh","Two","Three")==1){
+  //if ()
+  if(button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==1){
     
-  } else if (button("Oneewhfqfgqekhfqjiewjhfliqwehflqewhflqweehlkfqewh","Two","Three")){
+  } 
+  else if (button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==2){
 
-  } else if (button("Oneewhfqfgqekhfqjiewjhfliqwehflqewhflqweehlkfqewh","Two","Three")){
+  } 
+  else if (button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==3){
     
   }
-  circle(750,50,25);
-  
+
+  //pray button
+  fill(255);
+  circle(750,50,40);
+
+  fill(0);
+  textSize(17);
+  text("pray", 735,54);
+  println(prayAmt);
 }
+
 void mouseClicked(){
   if(dist(mouseX,mouseY,750,50)<=25){
       prayAmt++;
@@ -150,9 +172,6 @@ Options:
 2. Punish yourself (canon)
 3. Pray to god (+10 prays)
 
-- mirror scene - cutscene
-DOESN'T HAPPEN IF YOU TALKED TO HESTER
-
 - nighttime walk (scarlet letter in the sky)
 only if you didn't admit your crimes
 Options:
@@ -178,12 +197,12 @@ Options:
 Hester reveals Roger; Hester proposes escape
 1. disagree
 2. agree (canon)
-3. pray to god (+10 prays);
+3. kill roger
 
 - election sermon
 IF: you admitted crime
 ESCAPE:
-- canon but without death
+- you deliver a holy sermon, everyone likes you, you leave the next day to live with hester (roger isn't there cuz he was never there)
 NO ESCAPE:
 - you deliver a holy sermon, everyone loves you, but you get killed by roger
 KILL ROGER:
@@ -192,39 +211,24 @@ KILL ROGER:
 IF: not admitted crime
 ESCAPE: canon
 NO ESCAPE: canon but you don't admit your crimes; roger kills you
-HESTER MAD: you deliver a holy sermon, (canon), but you don't see hester. Later, you find out she left with pearl. 
+KILL ROGER: Good ending. You deliver a holy sermon, everyone loves you more, roger is found dead the next day. You lives a slightly better life, occasionally meeting with Hester
+HESTER MAD: you deliver a holy sermon, (canon), but you don't see hester. Later, you find out she left with pearl. You get killed by Roger
 
-Variables:
-Friendship:
-- Pearl
-- Hester
-- Roger
-- Public
-
-Guilt:
-- hidden var that affects some endings
-
-Bool for runaway or not:
 
 Scarlet Letter:
 
 Endings:
 Good Ending:
 - Stay in New England with Pearl and Hester 
-- because of high public opinion and the symbol of the A changing,
-  you live a long and happy life with Hester and die a little bit later than canon
-Requirements
-- High everything, good public opinion, NO ROGERR
-
+- no roger
 
 Bad Ending:
-- Roger Kills you, Pearl and Hester Leave without you
-Requirements:
-Low Pearl and Hester vars, anatgonize Roger, 
+- Roger Kills you
+- Pearl and Hester Leave without you
+
+
 Canon Ending:
 - You die on the scaffold
-Requirements:
-- plan to leave to england but high guilt var kills you
 
 
 Runaway Ending: TWO OPTIONS
@@ -246,23 +250,15 @@ Secret Ending (Ascension):
 
 
 Amie: 
-- Draw Roger
-- Draw Hester
-- Draw Pearl
-- draw cutscenes
-- code transitions/screens
-- UI
-- Story(10 big blocks 150-200 words)
-
-Joza:
-Art:
-- stock images of backgrounds
-Code:
-- Coding selection system, like how to choose the different buttons, 
-- pray button
-
-Both:
+- art
+- UI (user interface)
+- Story planning
 - balancing, what leads to what ending
 - Options (3 per scene, like 50-100 words), 30 total
+
+Joza:
+- stock images of backgrounds
+- Coding buttons, text animations, flow of events (which screen/button leads to what), basically the framework of the code
+- pray button
 
 */
