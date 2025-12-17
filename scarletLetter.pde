@@ -119,8 +119,8 @@ void dialouge(String Dialouge){
   fill(255);
   triangle(765,760,775,770,765,780);
 
-  fill(70);
-  text("(press enter to continue)", 550,775);
+  // fill(70);
+  // text("(press enter to continue)", 550,775);
 }
 
 boolean next(){
@@ -158,6 +158,8 @@ void draw(){
     }
     else{
       dialouge("You meet a nice young woman. Her name is Hester. There's something special between you two... But no, you must not! You are an esteemed priest, while she is a married seamstress...");
+      fill(70);
+  text("(press enter to continue)", 550,775);
     }
   }
 
@@ -177,6 +179,8 @@ void draw(){
     else{
       if(hester_option1){
         dialouge("The crowd praises you and shower you with love. Hester stares at you in shock and betrayal.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           hester_on_scaffolding = false;
           roger_cutscene = true;
@@ -184,6 +188,8 @@ void draw(){
       }
       else if(hester_option2){
         dialouge("The crowd is taken aback by your words. After a few minutes, public outcry against you pushes the governor to take you off the scaffolding. Shortly after, you are temporarily stripped of your priestly status.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           hester_on_scaffolding = false;
           governor_admit = true;
@@ -202,6 +208,8 @@ void draw(){
   if(roger_cutscene){
     background(0);
     dialouge("An ominous presence approaches you. 'Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance.' The man says. Per the town's wishes, you and Roger start living together to preserve your failing health.");
+    fill(70);
+  text("(press enter to continue)", 550,775);
     if(next()){
       roger_cutscene = false;
       governor = true;
@@ -236,6 +244,8 @@ void draw(){
     else{
       if(governor_option1){
         dialouge("Roger's eyes seem to pierce through your soul. You shiver and turn away from him. The governor considers your words, and accepts them.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor = false;
           guilt = true;
@@ -243,6 +253,8 @@ void draw(){
       }
       else if(governor_option2){
         dialouge("You tell Hester you can't help her, and apologize gracefully. A pair of eyes feel like they're burning through your skull, but you ignore it in favor of listening to the governor debate with Hester about Pearl. In the end, he agrees to let Hester keep custody of Pearl,  but it is a close call.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor = false;
           guilt = true;
@@ -250,6 +262,8 @@ void draw(){
       }
       else if(governor_option3){
         dialouge("Hester narrows her eyes at you in anger, and passionately states her case for why she should keep Pearl. The governor considers your words and Hester's words carefully, and ultimately decides to let Hester keep Pearl.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor = false;
           guilt = true;
@@ -295,6 +309,8 @@ void draw(){
     else{
       if(governor_admit_option1){
         dialouge("The physicial behind the governor's eyes seem to pierce through your soul. You shiver and turn away from him. The governor considers your words. Afterwards, Hester makes her case for custody of Pearl. The governor promises to decide the next day.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor_admit = false;
           guilt_admit = true;
@@ -302,6 +318,8 @@ void draw(){
       }
       else if(governor_admit_option2){
         dialouge("The governor's eyes soften at your passionate voice. He deliberates for a few minutes, then agrees to make an opportunity for you to redeem yourself.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor_admit = false;
           guilt_admit = true;
@@ -309,6 +327,8 @@ void draw(){
       }
       else if(governor_admit_option3){
         dialouge("The governor considers your and Hesters' words, then looks at Pearl, who is happily twirling around the two of you. He decides to allow Pearl to stay with you and Hester. The physicial trailing in the back stares at you coldly as you celebrate with Hester.");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           governor_admit = false;
           guilt_admit = true;
@@ -349,6 +369,8 @@ void draw(){
     else{
       if(guilt_admit_option1){
         dialouge("You talk with Hester");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           guilt_admit = false;
           woods_admit = true;
@@ -356,12 +378,16 @@ void draw(){
       }
       else if(guilt_admit_option2){
         dialouge("You punish yourself");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           guilt_admit = false;
           woods_admit = true;
         }
       }
       else if(guilt_admit_option3){
+        fill(70);
+  text("(press enter to continue)", 550,775);
         dialouge("You pray to God 50 times");
         if(next()){
           guilt_admit = false;
@@ -407,6 +433,8 @@ void draw(){
     else{
       if(guilt_option1){
         dialouge("You talk with Roger");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           guilt = false;
           woods = true;
@@ -414,6 +442,8 @@ void draw(){
       }
       else if(guilt_option2){
         dialouge("You punish yourself");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           guilt = false;
           woods = true;
@@ -421,6 +451,8 @@ void draw(){
       }
       else if(guilt_option3){
         dialouge("You pray to God 50 times");
+        fill(70);
+  text("(press enter to continue)", 550,775);
         if(next()){
           guilt = false;
           woods = true;
@@ -534,6 +566,8 @@ void draw(){
 
   if(woods_mad){
     background(dark_forest);
+    fill(70);
+  text("(press enter to continue)", 550,775);
     if(next() == true){
       woods_mad = false;
       madHester = true;
