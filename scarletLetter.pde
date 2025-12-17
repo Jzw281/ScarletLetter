@@ -2,6 +2,7 @@
 String 脑子 = "not found";
 
 int prayAmt = 0;
+int mad = 0;
 
 PImage light_forest;
 PImage scaffolding;
@@ -9,14 +10,25 @@ PImage governor_house;
 PImage dark_forest;
 
 boolean prolouge = true; //background: light forest
-boolean hester_on_scaffolding = false; //please make this a better name. background: scaffolding
+boolean hester_on_scaffolding = false; //background: scaffolding
 boolean roger_cutscene = false; //this needs a background
 boolean governor = false;
+boolean governor_admit = false;
 boolean guilt = false; //this needs a background
+boolean guilt_admit = false;
 boolean night_walk = false; //this needs a background - the old pic was too low-quality
 boolean angel_cutscene = false; //this is the a in the sky. needs a background - can be the scaffolding but just dark
 boolean woods = false; //background: dark_forest
+boolean woods_admit = false;
 boolean election = false; //background: scaffolding
+boolean election_escape = false;
+boolean election_noAdmit = false;
+boolean election_kill = false;
+boolean escape = false;
+boolean noEscape = false;
+boolean killRoger = false;
+boolean madHester = false;
+boolean ascension = false;
 
 void setup(){
   size(800,800);
@@ -92,68 +104,284 @@ void dialouge(String Dialouge){
   fill(255);
   triangle(765,760,775,770,765,780);
 }
+boolean next(){
+  if(keyPressed){
+    if(keyCode == ENTER || keyCode == RETURN || key == 'p'){
+      return true;
+    } 
+    else{
+      return false;
+    }
+  } else{
+    return false;
+  }
+}
 
-void drawScene (int choiceOne, int choiceTwo, int choiceThree, boolean scene, boolean nextScene1, boolean nextScene2,boolean nextScene3){
-  if(scene){
-    if(button("choiceOne","choiceTwo","choiceThree")==1){
+void drawScene (String choiceOne, String choiceTwo, String choiceThree, boolean scene, boolean nextScene1, boolean nextScene2,boolean nextScene3){
+    if(button(choiceOne,choiceTwo,choiceThree)==1){
       scene = false;
       nextScene1 = true;
-    } 
-    else if(button("choiceOne","choiceTwo","choiceThree")==2){
+    } else if(button(choiceOne,choiceTwo,choiceThree)==2){
       scene = false;
       nextScene2 = true;
-    } 
-    else if(button("choiceOne","choiceTwo","choiceThree")==3){
+    } else if(button(choiceOne,choiceTwo,choiceThree)==3){
       scene = false;
       nextScene3 = true;
     }
-  }
 }
+
+    boolean hester_option1 = false;
+    boolean hester_option2 = false;
 void draw(){
-  //asfgdawlehfgauwheifohawiufhuiawehfuiwhaleifhaiwlhfuailwehfueiwlahf
-
-  // transition to next scene
-  // create a boolen for each scene, when one of the options is true, then set own bool to false and one of the other ones to true. 
-
-  // TO: JOZAAAAAAAAAA //
-
-  // Here's how to syntax:
   if(prolouge){
-    prolouge(); //make a function for the boolean. That way the code is clean and easy to traverse
-  }
-  //now go to line 152
-
-  if(button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==1){
-    
-  } 
-  else if (button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==2){
-
-  } 
-  else if (button("Oneuykfgkyufghkuygfhkuygljkluigy","Two","Three")==3){
-    
-  }
-
-  //pray button
-  fill(255);
-  circle(750,50,40);
-
-  fill(0);
-  textSize(17);
-  text("pray", 735,54);
-  println(prayAmt);
-}
-
-void mouseClicked(){
-  if(dist(mouseX,mouseY,750,50)<=25){
-      prayAmt++;
+    background(light_forest);
+    if(next() == true){
+      prolouge = false;
+      hester_on_scaffolding = true;
     }
-}
+    else{
+      dialouge("You meet a nice young woman. Her name is Hester. There's something special between you. But no, you must not! You are an esteemed priest, while she is a married seamstress.");
+    }
+  }
+  if(hester_on_scaffolding){
+    background(scaffolding);
 
-void prolouge(){
+    if(button("Condemn Hester for her crimes.","Admit that it is YOU who is the husband.","Preach to the crowds and beg Hester to admit who the husband is.")==1){
+      hester_option1 = true;
+    } 
+    else if(button("Condemn Hester for her crimes.","Admit that it is YOU who is the husband.","Preach to the crowds and beg Hester to admit who the husband is.")==2){
+      hester_option2 = true;  
+    } 
+    else if(button("Condemn Hester for her crimes.","Admit that it is YOU who is the husband.","Preach to the crowds and beg Hester to admit who the husband is.")==3){
+      hester_on_scaffolding = false;
+      roger_cutscene = true;
+    }
+    else{
+      if(hester_option1){
+        dialouge("(The crowd praises you and shower you with love. Hester stares at you in shock and betrayal.)");
+        if(next()){
+          hester_on_scaffolding = false;
+          roger_cutscene = true;
+        }
+      }
+      else if(hester_option2){
+        dialouge("(The crowd is taken aback by your words. After a few minutes, public outcry against you pushes the governor to take you off the scaffolding. Shortly after, you are temporarily stripped of your priestly status.)");
+        if(next()){
+          hester_on_scaffolding = false;
+          governor_admit = true;
+        }
+      }
+      else{
+        dialouge("Hester stands on the scaffolding. The crowd insults her. Guilt naws at your heart. Little do the townspeople know, YOU are the one who sinned...");
+      }
+    }
+
+    if(buttonPressed(10,440,250,50)){
+      mad++;
+    }
+  }
+  if(roger_cutscene){
+    background(0);
+    if(next() == false){
+      roger_cutscene = false;
+      governor = true;
+    }else{
+      dialouge("(An ominous presence approaches you.) Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance. (Per the town's wishes, you and Roger start living together to preserve your failing health.)");
+    }
+    //pray button
+    fill(255);
+    circle(750,50,40);
+
+    fill(0);
+    textSize(17);
+    text("pray", 735,54);
+  }
+  if(governor){
+    dialouge("(You enter the Governor's hall along with Governor Bellingham and Reverend Wilson, Pearl and Hester are there, Hester is trying to argue against pearl being taken away)");
+    drawScene(
+      "Argue for Hester to keep Pearl",
+      "Apologize to Hester",
+      "Try to take Pearl away (doesn't work but Hester is MAD)",
+      governor,guilt,guilt,guilt
+    );
+    if (buttonPressed(530,440,250,50)){
+      mad++;
+    }
+    
+    //pray button
+    fill(255);
+    circle(750,50,40);
+
+    fill(0);
+    textSize(17);
+    text("pray", 735,54);
+  }
+  if(governor_admit){
+    dialouge("Governor: *sees you and hester* The fallen angel and the bearer of the scarlet letter, what are you doing in my abode?");
+    drawScene(
+      "Ask for forgiveness (Roger smirks in the background)",
+      "Preach how you punished yourself for your sins - Governor is happier, and will allow you to keep Pearl happily (Roger stares at you)",
+      "Ask for Pearl to be with Hester and yourself",
+      governor_admit,guilt_admit,guilt_admit,guilt_admit
+    );
+
+    //pray button
+    fill(255);
+    circle(750,50,40);
+
+    fill(0);
+    textSize(17);
+    text("pray", 735,54);
+  }
+  if(guilt_admit){
+    dialouge("Guilt continues to knaw at your heart. It's slowly becoming unbearable.");
+    drawScene(
+    "Talk with Hester. She comforts you",
+    "Punish yourself(flogging)",
+    "Pray to god", 
+      guilt_admit,woods_admit,woods_admit,woods_admit
+    );
+
+    //pray button
+    fill(255);
+    circle(750,50,40);
+
+    fill(0);
+    textSize(17);
+    text("pray", 735,54);
+  }
+
+  if(guilt){
+    dialouge("Guilt continues to knaw at your heart. It's slowly becoming unbearable.");
+    drawScene(
+      "Talk to Roger. He makes you feel more guilty",
+      "Punish yourself(flogging)",
+      "Pray to god",
+      guilt,night_walk,night_walk,night_walk
+    );
+    if (buttonPressed(530,440,250,50)){
+      prayAmt+=10;
+    }
+    
+        //pray button
+    fill(255);
+    circle(750,50,40);
+
+    fill(0);
+    textSize(17);
+    text("pray", 735,54);
+  }
+
+  if(night_walk){
+    dialouge("You can't sleep becuse of th guilt. You go into the town for a walk to clear your head.");
+    drawScene(
+      "Walk onto the scaffolding",
+      "Return Home(More Self-Punishment)",
+      "Pray to god",
+      night_walk,angel_cutscene,woods,woods
+    );
+    if (buttonPressed(530,440,250,50)){
+      prayAmt+=10;
+    }
+    
+  }
+  if(angel_cutscene){
+    if(next() == false){
+      angel_cutscene = false;
+      woods = true;
+    }else{
+      dialouge("You walk onto the scaffolding, and a giant A flashes across the sky. The townspeople said it meant 'Angel'." );
+    }
+  }
+
+  if(woods){
+    dialouge("You meet with Hester in the woods. She wants to escape the next morning, however you would miss giving the election sermon that you have been anticipating.");
+    drawScene(
+      "Disagree.",
+      "Agree.",
+      "Kill Roger.",
+      woods,noEscape,escape,killRoger
+    );
+    if(prayAmt>=100){
+      ascension = true;
+      killRoger = false;
+      escape = false;
+      noEscape = false;
+    }
+    if (mad>=2){
+      madHester=true;
+      killRoger = false;
+      escape = false;
+      noEscape = false;
+    }
+  }
+  if(woods_admit){
+    dialouge("talk to hester; you reveal you have been given a chance to redeem yourself by giving a small speech at the election. Hester proposes we escape.");
+    drawScene(
+      "Decide you do not need to escape, because you can kill roger",
+      "Decide to ESCAPE.",
+      "Decide to NOT escape and NOT do anything about roger." ,
+       woods_admit,election_kill,election_escape,election_noAdmit
+    );
+    if (mad>=2){
+      madHester=true;
+      election_noAdmit = false;
+      election_escape = false;
+      election_kill = false;
+    }
+    if(prayAmt>=100){
+      ascension = true;
+      election_noAdmit = false;
+      election_escape = false;
+      election_kill = false;
+    }
+    
+  }
+  if(election_kill){
+    background(0);
+    dialouge("Good ending. You deliver a holy sermon, everyone loves you more, Roger is found dead the next day. You lives a slightly better life, occasionally meeting with Hester" );
+    }
+  if(election_escape){
+    background(0);
+    dialouge("After you give you sermon, you escape on the boat with Hester, however the boats sinks under a mssive tusnami. Some would call it karma.");
+  }
+  if(election_noAdmit){
+    background(0);
+    dialouge("You give the election sermon. You perform beautifully, it's almost if one of the Muses has give you their blessing. Sadly, you pass right after giving your sermon.");
+  }
+
+  if(escape){
+    background(0);
+    dialouge("You, Hester, and Pearl leave on the next ship early next morning. Unfortuantly, you found out that Roger has also taggd along. Upon your arrival in England, you don't live much long before passing.");
+  }
+ if(noEscape){
+    background(0);
+    dialouge("Hester reveals Roger's identity infront of the entire town, people are unsure of what to think. Roger is declared a sinner for hiding his identity, and a D is branded across his chest for 'Deciver'.");
+  }
+  if(madHester){
+    background(0);
+    dialouge("You deliver a holy sermon, but you don't see Hester. Later, you find out she left with pearl. You get killed by Roger");
+  }
+  if(killRoger){
+    background(0);
+    dialouge("Late that night you decide to end Roger's life. Before anyone notices, you, Hester, and Pearl get on the next ship to England. The three of you live a long and happy life after.");
+  }
+  if(ascension){
+    background(0);
+    dialouge("'Secret Ending' Due to your constant praying, and you repentance of your sins, God awards you an immediete spot in heaven. But what of Hester and Pearl?");
+
+  }
+}
+void mouseClicked(){
+  if(dist(mouseX,mouseY,750,50)<50){
+    prayAmt++;
+  }
+}
+int prolouge(){
   background(light_forest); //the background is the image. the image MUST be 800x800 aka the same dimensions of the canvas or else it won't work
   
   dialouge("aabsdfasjdfasdnf");
-  println(button("One","Two","Three"));
+  return button("One","Two","Three");
 
   //image(); //please put images of roger and the person he is talking to/looking at on the left and right of the screen respectively.
   //syntax: image(imagevariable, x-top-left-corner, y-top-left-corner);
@@ -203,8 +431,7 @@ Options:
 2. Punish yourself
 3. Pray to god (+10 prays)
 
-IF: You didn't admit your crimes
-Options:
+If you didn't admit your crimes
 1. Talk to Roger. He makes you more guilty
 2. Punish yourself (canon)
 3. Pray to god (+10 prays)
@@ -244,6 +471,8 @@ NO ESCAPE:
 - you deliver a holy sermon, everyone loves you, but you get killed by roger
 KILL ROGER:
 - you deliver a holy sermon, everyone loves you, roger is found dead the next day. 
+
+
 
 IF: not admitted crime
 ESCAPE: canon
