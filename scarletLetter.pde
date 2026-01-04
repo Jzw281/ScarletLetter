@@ -8,8 +8,10 @@ PImage light_forest;
 PImage scaffolding;
 PImage governor_house;
 PImage dark_forest;
+PImage coffin;
 
-boolean prolouge = true;
+boolean main_menu = true;
+boolean prolouge = false;
 boolean hester_on_scaffolding = false;
 boolean roger_cutscene = false;
 boolean governor = false;
@@ -53,6 +55,7 @@ void setup(){
   scaffolding = loadImage("scaffolding.png");
   governor_house = loadImage("governor_house.png");
   dark_forest = loadImage("dark_forest.jpg");
+  coffin = loadImage("coffin.png");
   
   background(light_forest);
 }
@@ -150,6 +153,42 @@ void drawScene (String choiceOne, String choiceTwo, String choiceThree, boolean 
 }
 
 void draw(){
+  if(main_menu){
+    background(0);
+    textAlign(CENTER);
+
+    fill(255);
+    textSize(80);
+    text("The Scarlet Letter", 400,150);
+    textSize(20);
+    text("Welcome to the Scarlet Letter choose-your-own-adventure visual novel game thingy!", 400,270);
+    text("In this game, you play as Arthur Dimmesdale, and are free to change the plot as you please.", 400,320);
+    text("If you haven't read The Scarlet Letter... read a summary :P", 400,370);
+    text("And for those of you who've read the ENTIRE book...", 400,420);
+    text("buckle up and enjoy exploring the different ways the story could have played out!", 400,470);
+
+    //start button
+    textSize(80);
+    fill(255);
+    rect(400-textWidth("start"),580,2*textWidth("start"),90);
+    fill(0);
+    text("START", 400,650);
+
+    //if the mouse hovers over the start button: inverse the colors
+    if(mouseX>=400-textWidth("start") && mouseX<=400+textWidth("start") && mouseY>=580 && mouseY<=670){
+      fill(255,0,0);
+      rect(400-textWidth("start"),580,2*textWidth("start"),90);
+      fill(255);
+      text("START", 400,650);
+
+      if(mousePressed){ //if the button is clicked, go to prolouge
+        textAlign(LEFT);
+        prolouge = true;
+        main_menu = false;
+      }
+    }
+  }
+
   if(prolouge){
     background(light_forest);
     if(next() == true){
@@ -200,7 +239,7 @@ void draw(){
       }
     }
 
-    if(buttonPressed(10,440,250,50)){
+    if(buttonPressed(10,490,250,50)){
       mad++;
     }
   }
@@ -274,7 +313,7 @@ void draw(){
       }
 
 
-      if (buttonPressed(530,440,250,50)){
+      if (buttonPressed(530,490,250,50)){
         mad++;
       }
     }
@@ -399,7 +438,7 @@ void draw(){
       }
     }
 
-    if(buttonPressed(530,440,250,50)){
+    if(buttonPressed(530,490,250,50)){
       prayAmt+=10;
     }
 
@@ -463,7 +502,7 @@ void draw(){
       }
     }
 
-    if(buttonPressed(530,440,250,50)){
+    if(buttonPressed(530,490,250,50)){
       prayAmt+=10;
     }
     
@@ -508,6 +547,7 @@ void draw(){
       noEscape = false;
     }
     if(mad>=2){
+      woods=false;
       woods_mad=true;
       killRoger = false;
       escape = false;
@@ -549,6 +589,7 @@ void draw(){
     }
 
     if(prayAmt>=100){
+      woods_admit = false;
       ascension = true;
       election_noAdmit = false;
       election_escape = false;
@@ -585,14 +626,17 @@ void draw(){
     text("pray", 735,54);
   }
 
-  // ENDINGS //
+  /////////////////
+  //// ENDINGS ////
+  /////////////////
+
   if(election_kill){
     background(0);
     fill(255);
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
 
-    dialouge("You give the election sermon. You perform beautifully, and it's almost if one of the Muses has spoken through your lips. Roger is found dead the next day, dead to unknown causes. In the town, you are beloved and you lives for an average lifespan, occasionally meeting with Heste throughout the years.");
+    dialouge("You give the election sermon. You perform beautifully, and it's almost as if one of the Muses has spoken through your lips. Roger is found dead the next day, dead to unknown causes. In the town, you are beloved and you lives for an average lifespan, occasionally meeting with Hester throughout the years.");
   }
   if(election_escape){
     background(0);
@@ -600,24 +644,24 @@ void draw(){
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("After you give you sermon, you escape on the boat with Hester. However the boats sinks under a mssive tusnami. Some rumors say that someone tampered with the weather and navigation equipement on the boat. Some people would call it karma.");
+    dialouge("After you give your sermon, you escape on the boat with Hester. However, the boat sinks under a massive surprise tsunami. Some rumors say that someone tampered with the weather and navigation equipement on the boat. Some people would call it karma.");
   }
   if(election_noAdmit){
-    background(0);
+    background(coffin);
     fill(255);
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("You give the election sermon. You perform beautifully, and it's almost if one of the Muses has spoken through your lips. Sadly, you pass away a few days after giving your sermon due to unknown causes, heavily suspected to do with your health.");
+    dialouge("You give the election sermon. You perform beautifully, and it's almost as if one of the Muses has spoken through your lips. Sadly, you pass away a few days after giving your sermon due to unknown causes, heavily suspected to do with your health. But Roger, your physician who was supposed to keep you alive, disappeared shortly after you were found dead in your home. What has he done, and what has become of him?");
   }
 
   if(escape){
-    background(0);
+    background(coffin);
     fill(255);
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("You, Hester, and Pearl leave on the next ship early next morning. Unfortuantly, you found out that Roger has also taggd along. Upon your arrival in England, you don't live much for long before passing away.");
+    dialouge("You, Hester, and Pearl leave on the next ship early next morning. Unfortunately, you found out that Roger has also tagged along. Upon your arrival in England, you don't live for long before passing away.");
   }
   if(noEscape){
     background(0);
@@ -625,15 +669,15 @@ void draw(){
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("Hester reveals Roger's identity in front of the entire town. People are unsure of what to think. Roger is eventually declared a sinner for hiding his identity, and a D is branded across his chest for 'Deciever'.");
+    dialouge("Hester reveals Roger's identity in front of the entire town. People are unsure of what to think. Roger is eventually declared a sinner for hiding his identity, and a D is branded across his chest for 'Deciever'. He is banished from your home, and you live an average lifespan filled with holyness and happiness.");
   }
   if(madHester){
-    background(0);
+    background(coffin);
     fill(255);
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("You deliver a holy sermon at the election, but you don't see Hester. Later, you find out she left with Pearl. Before you can do anything, you pass away to mysterious means. It is likely due to something going wrong in your physical health.");
+    dialouge("You deliver a holy sermon at the election, but you don't see Hester. Later, you find out that she left with Pearl. Before you can do anything, you pass away due to mysterious means. It is likely due to something going wrong in your physical health. After you are found dead, people realize that Roger is no where to been seen.");
   }
   if(killRoger){
     background(0);
@@ -641,7 +685,7 @@ void draw(){
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("Late that night you decide to end Roger's life. Before anyone notices, you, Hester, and Pearl get on the next ship to England. The three of you live a long and happy life in England.");
+    dialouge("Late that night, you decide to end Roger's life. Before anyone notices, you, Hester, and Pearl get on the next ship to England. The three of you live a long and happy life in England.");
   }
   if(ascension){
     background(0);
@@ -649,7 +693,7 @@ void draw(){
     textSize(50);
     text("THE END", 400-textWidth("THE END")/2,200);
     
-    dialouge("'Secret Ending' Due to your constant praying, and the repentance of your sins, God awards you an immediete spot in heaven. But what of Hester and Pearl?");
+    dialouge("(Secret Ending) Due to your constant praying and the repentance of your sins, God awards you an immediate spot in heaven. But what of Hester and Pearl?");
   }
 }
 
@@ -678,6 +722,7 @@ Options:
 - meet roger - cutscene
 DOESN'T HAPPEN IF YOU ADMIT YOUR CRIMES
 'An ominous presence approaches you'. Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance. 'Per the town's wishes, you and Roger start living together to preserve your failing health'.
+
 *PRAY BUTTON APPEARS HERE*
 
 - governor's hall (meeting pearl and hester)
