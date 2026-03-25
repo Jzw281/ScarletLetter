@@ -4,11 +4,21 @@ String 脑子 = "not found";
 int prayAmt = 0;
 int mad = 0;
 
+//backgrounds
 PImage light_forest;
 PImage scaffolding;
 PImage governor_house;
 PImage dark_forest;
+
+//end screens
 PImage coffin;
+PImage heaven;
+
+//characters 
+PImage arthur;
+PImage roger;
+PImage hester;
+//PImage the_governer?? status: unconfirmed
 
 boolean main_menu = true;
 boolean prolouge = false;
@@ -30,9 +40,11 @@ boolean noEscape = false;
 boolean killRoger = false;
 boolean madHester = false;
 boolean ascension = false;
+boolean end = false;
 
 boolean hester_option1 = false;
 boolean hester_option2 = false;
+boolean hester_option3 = false;
 boolean governor_option1 = false;
 boolean governor_option2 = false;
 boolean governor_option3 = false;
@@ -50,12 +62,19 @@ boolean guilt_admit_option3 = false;
 void setup(){
   size(800,800);
   pixelDensity(1); //needed to make sure the images work correctly
+  imageMode(CENTER);
   
+  //backgrounds
   light_forest = loadImage("light_forest.png");
   scaffolding = loadImage("scaffolding.png");
   governor_house = loadImage("governor_house.png");
   dark_forest = loadImage("dark_forest.jpg");
+
+  //end screens
   coffin = loadImage("coffin.png");
+
+  //characters
+  roger = loadImage("roger.png");
   
   background(light_forest);
 }
@@ -212,8 +231,7 @@ void draw(){
       hester_option2 = true;  
     } 
     else if(button("Condemn Hester for her crimes","Admit that it is YOU who is the husband","Preach to the crowds")==3){
-      hester_on_scaffolding = false;
-      roger_cutscene = true;
+      hester_option3 = true;
     }
     else{
       if(hester_option1){
@@ -221,6 +239,7 @@ void draw(){
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
+          mad++;
           hester_on_scaffolding = false;
           roger_cutscene = true;
         }
@@ -234,18 +253,23 @@ void draw(){
           governor_admit = true;
         }
       }
-      else{
-        dialouge("Hester stands on the scaffolding. The crowd insults her for committing a horrible sin. Guilt naws at your heart. Little do the townspeople know, YOU are the one who sinned with her...");
+      else if(hester_option3){
+        dialouge("You preach about honestly, morality, and sacredness to the onlookers. You ask Hester if she would admit who her fellow sinner was, but she refuses. After your speech, you retire to your chambers.");
+        if(next()){
+          hester_on_scaffolding = false;
+          roger_cutscene = true;
+        }
       }
-    }
-
-    if(buttonPressed(10,490,250,50)){
-      mad++;
+      else{
+        dialouge("(One Year Later...) Hester stands on the scaffolding. The crowd insults her for committing a horrible sin. Guilt naws at your heart. Little do the townspeople know, YOU are the one who sinned with her...");
+      }
     }
   }
 
   if(roger_cutscene){
     background(0);
+    image(roger,400,350);
+
     dialouge("An ominous presence approaches you. 'Hello, I'm Roger Chillingworth, and I'm a physician. Nice to meet your aquaintance.' The man says. Per the town's wishes, you and Roger start living together to preserve your failing health.");
     fill(70);
   text("(press enter to continue)", 550,775);
@@ -253,6 +277,11 @@ void draw(){
       roger_cutscene = false;
       governor = true;
     }
+
+    if (dist(mouseX, mouseY, 750, 50) < 20 && mousePressed) {
+      prayAmt += 10;
+    }
+
     //pray button
     fill(255);
     circle(750,50,40);
@@ -264,6 +293,7 @@ void draw(){
 
   if(governor){
     background(governor_house);
+    image(roger, 100,350);
 
     if(button("Argue for Hester to keep Pearl",
       "Apologize to Hester",
@@ -304,6 +334,7 @@ void draw(){
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
+          mad++;
           governor = false;
           guilt = true;
         }
@@ -311,13 +342,12 @@ void draw(){
       else{
         dialouge("(You enter the Governor's hall along with Governor Bellingham and Reverend Wilson. Pearl and Hester are there, and Hester is trying to argue against having Pearl be taken away from her.)");
       }
-
-
-      if (buttonPressed(530,490,250,50)){
-        mad++;
-      }
     }
     
+    if (dist(mouseX, mouseY, 750, 50) < 20 && mousePressed) {
+      prayAmt += 10;
+    }
+
     //pray button
     fill(255);
     circle(750,50,40);
@@ -329,6 +359,7 @@ void draw(){
   
   if(governor_admit){
     background(governor_house);
+    image(roger, 150,350);
     
     if(button("Ask for forgiveness",
       "Preach how you punished yourself for your sins",
@@ -347,7 +378,7 @@ void draw(){
     }
     else{
       if(governor_admit_option1){
-        dialouge("The physicial behind the governor's eyes seem to pierce through your soul. You shiver and turn away from him. The governor considers your words. Afterwards, Hester makes her case for custody of Pearl. The governor promises to decide the next day.");
+        dialouge("The physician behind the governor's eyes seem to pierce through your soul. You shiver and turn away from him. The governor considers your words. Afterwards, Hester makes her case for custody of Pearl. The governor promises to decide the next day.");
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
@@ -365,7 +396,7 @@ void draw(){
         }
       }
       else if(governor_admit_option3){
-        dialouge("The governor considers your and Hesters' words, then looks at Pearl, who is happily twirling around the two of you. He decides to allow Pearl to stay with you and Hester. The physicial trailing in the back stares at you coldly as you celebrate with Hester.");
+        dialouge("The governor considers your and Hesters' words, then looks at Pearl, who is happily twirling around the two of you. He decides to allow Pearl to stay with you and Hester. The physician trailing in the back stares at you coldly as you celebrate with Hester.");
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
@@ -376,6 +407,10 @@ void draw(){
       else{
         dialouge("The governor sees you and Hester in his hall. 'The fallen angel, the bearer of the scarlet letter, and the crimson blush of their child! To WHAT do I owe your presence in my esteemed hall?");
       }
+    }
+
+    if (dist(mouseX, mouseY, 750, 50) < 20 && mousePressed) {
+      prayAmt += 10;
     }
 
     //pray button
@@ -434,12 +469,12 @@ void draw(){
         }
       }
       else{
-        dialouge("Some nights, guilt continues to knaw at your heart. It's slowly becoming unbearable.");
+        dialouge("Some nights, guilt continues to gnaw at your heart. It's slowly becoming unbearable.");
       }
     }
 
-    if(buttonPressed(530,490,250,50)){
-      prayAmt+=10;
+    if (dist(mouseX, mouseY, 750, 50) < 20 && mousePressed) {
+      prayAmt += 10;
     }
 
     //pray button
@@ -471,7 +506,8 @@ void draw(){
     }
     else{
       if(guilt_option1){
-        dialouge("You talk with Roger");
+        image(roger, 400,350);
+        dialouge("You talk with Roger vaguely about your feelings. His face remains passive, but you feel a massive pressure on your being. A few minutes later, you part with Roger, feeling heavy and even more guilt-ridden.");
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
@@ -480,7 +516,7 @@ void draw(){
         }
       }
       else if(guilt_option2){
-        dialouge("You punish yourself");
+        dialouge("You punish yourself by your closet, flogging your back in the dead of night. The burn of your back temporarily relieves you of your guilty thoughts.");
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
@@ -489,7 +525,7 @@ void draw(){
         }
       }
       else if(guilt_option3){
-        dialouge("You pray to God 50 times");
+        dialouge("You pray to God 50 times in hope of salvation.");
         fill(70);
   text("(press enter to continue)", 550,775);
         if(next()){
@@ -498,12 +534,12 @@ void draw(){
         }
       }
       else{
-        dialouge("Guilt continues to knaw at your raw heart. It's quickly becoming unbearable.");
+        dialouge("Guilt continues to gnaw at your raw heart. It's quickly becoming unbearable.");
       }
     }
 
-    if(buttonPressed(530,490,250,50)){
-      prayAmt+=10;
+    if (dist(mouseX, mouseY, 750, 50) < 20 && mousePressed) {
+      prayAmt += 10;
     }
     
     //pray button
@@ -540,8 +576,9 @@ void draw(){
       dialouge("You meet with Hester in the woods. She reveals the true identity of Roger Chillingworth: her previous husband, now vengeful devil who torments you everyday. She wants to escape this town. However, you first need to give the election sermon, the pinnacle of your career. By leaving, you could finally be free of Roger, but if you stayed, you'd forever suffer until your death.");
     }
  
-    if(prayAmt>=100){
+    if(prayAmt>=100 && !ascension){
       ascension = true;
+      woods=false;
       killRoger = false;
       escape = false;
       noEscape = false;
@@ -588,7 +625,7 @@ void draw(){
       dialouge("You meet with Hester in the woods. You tell her you have been given a chance to redeem yourself by giving a small speech at the coming election. Hester warns you of the danger of Roger Chillingworth, her ex-husband turned stalker of your family. She proposes to escape this town, back to New England.");
     }
 
-    if(prayAmt>=100){
+    if(prayAmt>=100 && !ascension){
       woods_admit = false;
       ascension = true;
       election_noAdmit = false;
@@ -637,6 +674,12 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
 
     dialouge("You give the election sermon. You perform beautifully, and it's almost as if one of the Muses has spoken through your lips. Roger is found dead the next day, dead to unknown causes. In the town, you are beloved and you lives for an average lifespan, occasionally meeting with Hester throughout the years.");
+  
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      election_kill = false;
+    }
   }
   if(election_escape){
     background(0);
@@ -645,6 +688,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("After you give your sermon, you escape on the boat with Hester. However, the boat sinks under a massive surprise tsunami. Some rumors say that someone tampered with the weather and navigation equipement on the boat. Some people would call it karma.");
+    
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      election_escape = false;
+    }
   }
   if(election_noAdmit){
     background(coffin);
@@ -653,6 +703,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("You give the election sermon. You perform beautifully, and it's almost as if one of the Muses has spoken through your lips. Sadly, you pass away a few days after giving your sermon due to unknown causes, heavily suspected to do with your health. But Roger, your physician who was supposed to keep you alive, disappeared shortly after you were found dead in your home. What has he done, and what has become of him?");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      election_noAdmit = false;
+    }
   }
 
   if(escape){
@@ -662,6 +719,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("You, Hester, and Pearl leave on the next ship early next morning. Unfortunately, you found out that Roger has also tagged along. Upon your arrival in England, you don't live for long before passing away.");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      escape = false;
+    }
   }
   if(noEscape){
     background(0);
@@ -670,6 +734,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("Hester reveals Roger's identity in front of the entire town. People are unsure of what to think. Roger is eventually declared a sinner for hiding his identity, and a D is branded across his chest for 'Deciever'. He is banished from your home, and you live an average lifespan filled with holyness and happiness.");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      noEscape = false;
+    }
   }
   if(madHester){
     background(coffin);
@@ -678,6 +749,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("You deliver a holy sermon at the election, but you don't see Hester. Later, you find out that she left with Pearl. Before you can do anything, you pass away due to mysterious means. It is likely due to something going wrong in your physical health. After you are found dead, people realize that Roger is no where to been seen.");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      madHester = false;
+    }
   }
   if(killRoger){
     background(0);
@@ -686,6 +764,13 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("Late that night, you decide to end Roger's life. Before anyone notices, you, Hester, and Pearl get on the next ship to England. The three of you live a long and happy life in England.");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      killRoger = false;
+    }
   }
   if(ascension){
     background(0);
@@ -694,20 +779,89 @@ void draw(){
     text("THE END", 400-textWidth("THE END")/2,200);
     
     dialouge("(Secret Ending) Due to your constant praying and the repentance of your sins, God awards you an immediate spot in heaven. But what of Hester and Pearl?");
+  
+    fill(70);
+  text("(press enter to continue)", 550,775);
+    if(next()){
+      end = true;
+      ascension = false;
+    }
+  }
+
+  if(end){
+    background(0);
+
+    //reset button
+    textAlign(CENTER);
+    textSize(80);
+    fill(255);
+    rect(400-textWidth("restart"),490,2*textWidth("restart"),90);
+    fill(0);
+    text("RESTART", 400,560);
+
+    //if the mouse hovers over the start button: inverse the colors
+    if(mouseX>=400-textWidth("restart") && mouseX<=400+textWidth("restart") && mouseY>=490 && mouseY<=580){
+      fill(255,0,0);
+      rect(400-textWidth("restart"),490,2*textWidth("restart"),90);
+      fill(255);
+      text("RESTART", 400,560);
+
+      if(mousePressed){ //if the button is clicked, go to prolouge
+        textAlign(LEFT);
+        reset();
+      }
+    }
   }
 }
 
-void mouseClicked(){
-  if(dist(mouseX,mouseY,750,50)<50){
-    prayAmt++;
-  }
+void reset(){ //resets to main menu
+  main_menu = true;
+  prolouge = false;
+  hester_on_scaffolding = false;
+  roger_cutscene = false;
+  governor = false;
+  governor_admit = false; 
+  guilt = false;
+  guilt_admit = false;
+  woods = false;
+  woods_admit = false;
+  woods_mad = false;
+  election = false;
+  election_escape = false;
+  election_noAdmit = false;
+  election_kill = false;
+  escape = false;
+  noEscape = false;
+  killRoger = false;
+  madHester = false; 
+  ascension = false;
+  end = false;
+
+  hester_option1 = false;
+  hester_option2 = false;
+  hester_option3 = false;
+  governor_option1 = false;
+  governor_option2 = false;
+  governor_option3 = false;
+  governor_admit_option1 = false;
+  governor_admit_option2 = false;
+  governor_admit_option3 = false;
+  guilt_option1 = false;
+  guilt_option2 = false;
+  guilt_option3 = false; 
+  guilt_admit_option1 = false;
+  guilt_admit_option2 = false;
+  guilt_admit_option3 = false;
+
+  mad = 0;
+  prayAmt = 0;
 }
-
-
 
 
 
 /* PLANNING
+
+(initial planning - a little stuff has changed, but most stuff is the same)
 
 - prolouge(backstory) - cutscene
 You meet a nice young woman. Her name is Hester. There's something special between you. But no, you must not! You are an esteemed priest, while she is a married seamstress.
